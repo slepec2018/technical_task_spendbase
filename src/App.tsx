@@ -1,26 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { observer } from 'mobx-react';
+import treeStore from './store/treeStore';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import CustomTreeView from './components/CustomTreeView/CustomTreeView';
 
-function App() {
+const App: React.FC = observer(() => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        backgroundColor: '#171717',
+        color: '#939393',
+      }}
+    >
+      <Typography
+        variant="h2"
+      >
+        Tree View App
+      </Typography>
+      {treeStore.isLoading ? (
+        <Typography
+        variant="h4"
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          Loading...
+        </Typography>
+        ) : (
+          <CustomTreeView data={treeStore.data} />
+        )}
+    </Box>
   );
-}
+});
 
 export default App;
